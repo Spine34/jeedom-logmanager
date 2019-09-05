@@ -22,7 +22,7 @@ Afin d’utiliser le plugin, vous devez le télécharger, l’installer et l’a
 Le plugin se trouve dans le menu Plugins > Programmation.
 Après avoir créé un nouvel équipement, les options habituelles sont disponnible.
 
-Le nom de l'équipement sera utilisé comme nom de log.
+Un équipement correspond à un log, le nom de l'équipement sera utilisé comme nom du fichier log.
 
 > **Tip**
 >
@@ -32,7 +32,7 @@ De plus, vous pouvez sélectionner le niveau de log à écrire: Debug, Info, War
 
 # Les commandes
 
-Chaque équipement dispose d'une commande de type message par niveau de log:
+Chaque équipement (log) dispose d'une commande de type message par niveau de log:
 
 - debug
 - info
