@@ -20,153 +20,123 @@
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
 
 class logmanager extends eqLogic {
-    /*     * *************************Attributs****************************** */
 
-    /*
-     * Fonction exécutée automatiquement toutes les minutes par Jeedom
-      public static function cron() {
+	public function preInsert() {
+		$this->setConfiguration('loglevel', '100');
+		$this->setIsEnable(1);
+	}
 
-      }
-     */
-    /*
-    public static function cron5() {
+	public function postInsert() {
 
-    }
-    */
-/*
-    public static function cronHourly() {
+	}
 
-    }
-*/
-     /*
-      public static function cronDaily() {
+	public function preSave() {
+		$replaceChars = array(
+			'á' => 'a', 'à' => 'a', 'â' => 'a', 'ä' => 'a',
+			'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
+			'í' => 'i', 'ì' => 'i', 'î' => 'i', 'ï' => 'i',
+			'ó' => 'o', 'ò' => 'o', 'ô' => 'o', 'ö' => 'o',
+			'ú' => 'u', 'ù' => 'u', 'û' => 'u', 'ü' => 'u'
+		);
 
-      }
-    */
+		$name = strtolower($this->getName());
+		$name = ltrim($name, '_');
+		$name = strtr($name, $replaceChars);
+		$name = preg_replace("/[^a-zA-Z_]/", "", $name);
+		$this->setName($name);
+	}
 
+	public function postSave() {
+		$loglevel = array('debug', 'info', 'warning', 'error');
+		$order = 0;
 
-    /*     * *********************Méthodes d'instance************************* */
-
-    public function preInsert() {
-
-    }
-
-    public function postInsert() {
-
-    }
-
-    public function preSave() {
-
-    }
-
-    public function postSave() {
-		$cmd = $this->getCmd(null, 'send');
-		if (!is_object($cmd)) {
-			$cmd = new logmanagerCmd();
-			$cmd->setLogicalId('send');
-			$cmd->setIsVisible(1);
-			$cmd->setName(__('Envoi', __FILE__));
-			$cmd->setType('action');
-			$cmd->setSubType('message');
-			$cmd->setEqLogic_id($this->getId());
-			//$cmd->setDisplay('title_placeholder', __('Options', __FILE__));
-			//$cmd->setDisplay('message_placeholder', __('Message', __FILE__));
-			$cmd->save();
+		foreach ($loglevel as $log) {
+			$cmd = $this->getCmd(null, $log);
+			if (!is_object($cmd)) {
+				$cmd = new logmanagerCmd();
+				$cmd->setLogicalId($log);
+				$cmd->setIsVisible(1);
+				$cmd->setOrder($order);
+				$cmd->setName(ucfirst($log));
+				$cmd->setType('action');
+				$cmd->setSubType('message');
+				$cmd->setEqLogic_id($this->getId());
+				$cmd->setDisplay('title_disable', 1);
+				$cmd->save();
+			}
+			++$order;
 		}
-    }
+		$logConfig = array($this->getConfiguration('loglevel', '100') => '1', 'default' => '0');
+		config::save('log::level::'.$this->getName(), $logConfig);
+	}
 
-    public function preUpdate() {
+	public function preUpdate() {
 
-    }
+	}
 
-    public function postUpdate() {
+	public function postUpdate() {
 
-    }
+	}
 
-    public function preRemove() {
+	public function preRemove() {
 
-    }
+	}
 
-    public function postRemove() {
+	public function postRemove() {
+		config::remove('log::level::'.$this->getName());
+	}
 
-    }
+	/*
+	 * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
+	  public function toHtml($_version = 'dashboard') {
 
-    // private function createApp() {
+	  }
+	 */
 
-    //     $url = "http://192.168.100.102:32768/application";
-    //     $headers = [
-    //         "Content-Type: application/json; charset=utf-8"
-    //     ];
-    //     $data = [
-    //         "name"=> "test2",
-    //         "description"=> "tutorial test"
-    //     ];
-    //     $data_string = json_encode($data);
+	/*
+	 * Non obligatoire mais ca permet de déclencher une action après modification de variable de configuration
+	public static function postConfig_<Variable>() {
+	}
+	 */
 
-    //     $ch = curl_init();
-    //     curl_setopt($ch, CURLOPT_URL, $url);
-    //     curl_setopt($ch, CURLOPT_POST, true);
-    //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers );
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
-    //     curl_setopt($ch, CURLOPT_USERPWD, "admin:admin" );
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-
-    //     $result = curl_exec($ch);
-    //     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-    //     curl_close ($ch);
-
-    //     log::add(__CLASS__, 'debug', "{$code}:{$result}");
-    //     // curl -u admin:admin -X POST https://yourdomain.com/application -F "name=test" -F "description=tutorial"
-    // }
-
-    /*
-     * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
-      public function toHtml($_version = 'dashboard') {
-
-      }
-     */
-
-    /*
-     * Non obligatoire mais ca permet de déclencher une action après modification de variable de configuration
-    public static function postConfig_<Variable>() {
-    }
-     */
-
-    /*
-     * Non obligatoire mais ca permet de déclencher une action avant modification de variable de configuration
-    public static function preConfig_<Variable>() {
-    }
-     */
+	/*
+	 * Non obligatoire mais ca permet de déclencher une action avant modification de variable de configuration
+	public static function preConfig_<Variable>() {
+	}
+	 */
 
 
-    /*     * **********************Getteur Setteur*************************** */
+	/*     * **********************Getteur Setteur*************************** */
 
 }
 
 class logmanagerCmd extends cmd {
-    /*     * *************************Attributs****************************** */
+	public function dontRemoveCmd() {
+		return true;
+	}
 
+	public function execute($_options = array()) {
 
-    /*     * ***********************Methode static*************************** */
+		if (!is_array($_options)) {
+			log::add('logmanager', 'error', __('Options invalides',__FILE__));
+		}
+		if (!isset($_options['message'])) {
+			log::add('logmanager', 'info', __('Message absent',__FILE__));
+			return;
+		}
+		$message =  trim($_options['message']);
+		if (trim($message) == '') {
+			log::add('logmanager', 'info', __('Message vide',__FILE__));
+			return;
+		}
 
-
-    /*     * *********************Methode d'instance************************* */
-
-    /*
-     * Non obligatoire permet de demander de ne pas supprimer les commandes même si elles ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
-      public function dontRemoveCmd() {
-      return true;
-      }
-     */
-
-    public function execute($_options = array()) {
 		$eqlogic = $this->getEqLogic();
-		switch ($this->getLogicalId()) {
-            case 'send':
-                $eqlogic->sendMessage($_options);
-				break;
-        }
-    }
-    /*     * **********************Getteur Setteur*************************** */
+		$loglevel = $this->getLogicalId();
+
+		try {
+			log::add($eqlogic->getName(), $loglevel, $message);
+		} catch (\Throwable $th) {
+			log::add('logmanager', 'error', $th->getMessage());
+		}
+	}
 }

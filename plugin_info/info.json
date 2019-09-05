@@ -4,7 +4,7 @@
 	"description" : "Plugin permettant une gestion de log personnalisée dans vos scénarios.",
 	"licence" : "AGPL",
 	"author" : "Mips2648",
-	"require" : "3.2.24",
+	"require" : "3.3.24",
 	"category" : "programming",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,

@@ -22,13 +22,3 @@ if (!isConnect()) {
     die();
 }
 ?>
-<form class="form-horizontal">
-    <fieldset>
-        <div class="form-group">
-            <label class="col-lg-4 control-label">{{URL}}</label>
-            <div class="col-lg-3">
-                <input type="text" class="configKey form-control" data-l1key="url" placeholder="http://yourdomain.com:32768"/>
-            </div>
-        </div>
-  </fieldset>
-</form>
