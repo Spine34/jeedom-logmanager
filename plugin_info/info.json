@@ -1,0 +1,20 @@
+{
+	"id" : "logmanager",
+	"name" : "LogManager",
+	"description" : "Plugin permettant une gestion de log personnalisée dans vos scénarios.",
+	"licence" : "AGPL",
+	"author" : "Mips2648",
+	"require" : "3.2.24",
+	"category" : "programming",
+	"hasDependency" : false,
+	"hasOwnDeamon" : false,
+	"maxDependancyInstallTime" : 0,
+	"changelog" : "https://mips2648.gitlab.io/logmanager/changelog/",
+	"documentation" : "https://mips2648.gitlab.io/logmanager/#language#/",
+	"link" : {
+		"forum":"",
+		"video" : ""
+	},
+	"language" : ["fr_FR", "en_US"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"]
+}
