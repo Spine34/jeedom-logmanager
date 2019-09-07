@@ -1,46 +1,46 @@
 ---
 layout: default
 title: Index
-lang: fr_FR
+lang: en_US
 ---
 
 # Description
 
-Plugin permettant une gestion de log personnalisée dans vos scénarios.
-Il est possible de créer autant de log que voulu, différent niveau de log sont possible pour chaque fichier de log.
-Cela permet d'organiser vos logs de scénario selon vos préférences, de par exemple regrouper toutes les actions sur un équipement dans le même log quelque soit le scénario.
+Plugin allowing custom log management in your scenarios.
+It is possible to create as many log as wanted, different log level are possible for each log file.
+This allows you to organize your scenario logs according to your preferences, for example to group all the actions on a device in the same log whatever the scenario.
 
-La consultation des logs se fait via l'interface standard de Jeedom.
-La purge des logs est également gérée par la config générale de Jeedom.
+The logs are consulted via Jeedom's standard interface.
+The purge of the logs is also managed by Jeedom's general config.
 
 # Installation
 
-Afin d’utiliser le plugin, vous devez le télécharger, l’installer et l’activer comme tout plugin Jeedom.
+In order to use the plugin, you must download, install and activate it like any Jeedom plugin.
 
-# Configuration de l'équipement
+# Device configuration
 
-Le plugin se trouve dans le menu Plugins > Programmation.
-Après avoir créé un nouvel équipement, les options habituelles sont disponnible.
+The plugin is in the Plugins > Programming menu.
+After creating new device, the usual options are available.
 
-Un équipement correspond à un log, le nom de l'équipement sera utilisé comme nom du fichier log.
+One device corresponds to one log, the name of the device will be used as the name of the log file.
 
 > **Tip**
 >
-> Afin d'éviter des problèmes potentiels, le nom de l'équipementd doit être uniquement composé des lettres de a à z, en miniscule, et du caractère souligné "_", le première caractère doit être une lettre.
+> In order to avoid potential problems, the name of the device must consist only of letters a to z, in lowercase, and the underscore character "_", the first character must be a letter.
 
-De plus, vous pouvez sélectionner le niveau de log à écrire: Debug, Info, Warning, Erreur.
+In addition, you can select the level of log to write: Debug, Info, Warning, Error.
 
-# Les commandes
+# Commands
 
-Chaque équipement (log) dispose d'une commande de type message par niveau de log:
+Each device (log) has a message type command per log level:
 
 - debug
 - info
 - warning
 - error
 
-Il suffit d'appeler la commande voulu avec le message et le log sera écrit en fonction du niveau de log configuré sur l'équipement.
+Just call the desired command with the message and the log will be written according to the log level configured on the device.
 
-# Le widget
+# The widget
 
-Un widget core standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
+A standard core widget will be displayed with the selected commands (to be configured in the "Commands" page of the device).
