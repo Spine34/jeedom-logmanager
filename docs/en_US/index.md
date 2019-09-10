@@ -39,7 +39,7 @@ Each device (log) has a message type command per log level:
 - warning
 - error
 
-Just call the desired command with the message and the log will be written according to the log level configured on the device.
+Il suffit d'appeler la commande voulue avec le message et le log sera écrit en fonction du niveau de log configuré sur l'équipement.
 
 # The widget
 
