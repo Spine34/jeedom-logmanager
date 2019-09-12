@@ -39,7 +39,7 @@ Chaque équipement (log) dispose d'une commande de type message par niveau de lo
 - warning
 - error
 
-Il suffit d'appeler la commande voulu avec le message et le log sera écrit en fonction du niveau de log configuré sur l'équipement.
+Il suffit d'appeler la commande voulue avec le message et le log sera écrit en fonction du niveau de log configuré sur l'équipement.
 
 # Le widget
 
