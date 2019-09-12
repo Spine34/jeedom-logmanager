@@ -119,6 +119,7 @@ class logmanagerCmd extends cmd {
 
 		if (!is_array($_options)) {
 			log::add('logmanager', 'error', __('Options invalides',__FILE__));
+			return;
 		}
 		if (!isset($_options['message'])) {
 			log::add('logmanager', 'info', __('Message absent',__FILE__));
@@ -131,10 +132,14 @@ class logmanagerCmd extends cmd {
 		}
 
 		$eqlogic = $this->getEqLogic();
+		$logName = $eqlogic->getName();
 		$loglevel = $this->getLogicalId();
+		$logLevelConfig = log::getLogLevel($logName);
+
+		log::add('logmanager', 'debug', "About to log a new message in {$logName} of level {$loglevel} with config {$logLevelConfig}");
 
 		try {
-			log::add($eqlogic->getName(), $loglevel, $message);
+			log::add($logName, $loglevel, $message);
 		} catch (\Throwable $th) {
 			log::add('logmanager', 'error', $th->getMessage());
 		}
