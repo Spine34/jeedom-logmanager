@@ -115,6 +115,25 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									</select>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label help" data-help="Générer un événement pour tout log écrit à partir du niveau de log sélectionné">{{Générer un événement}}</label>
+								<div class="col-sm-3">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="eventlevel">
+										<option value="">{{Désactivé}}</option>
+										<option value="100">{{Debug}}</option>
+										<option value="200">{{Info}}</option>
+										<option value="300">{{Warning}}</option>
+										<option value="400">{{Erreur}}</option>
+									</select>
+								</div>
+							</div>
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="alert alert-info globalRemark" style="">{{Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario}}</div>
+                                </div>
+                            </div>
 						</fieldset>
 					</form>
 				</div>
