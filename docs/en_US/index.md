@@ -41,6 +41,14 @@ Each device (log) has a message type command per log level:
 
 Just call the desired command with the message and the log will be written according to the log level configured on the device.
 
-# The widget
+Selon la configuration, un événement suivant sera généré par le plugin (seulement si le messag est réellement écrit dans le log).
+Cet événement peut-être utilisé comme déclencheur de scénario, c'est utile si vous voulez effectuer des actions personnalisées suite à un certain niveau de log écrit:
 
-A standard core widget will be displayed with the selected commands (to be configured in the "Commands" page of the device).
+- #lm-debug#
+- #lm-info#
+- #lm-warning#
+- #lm-error#
+
+# Le widget
+
+Un widget core standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
