@@ -19,6 +19,21 @@
 /* * ***************************Includes********************************* */
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
 
+class logManagerLevel {
+	const LOGLEVEL = array(100 => 'debug', 200 => 'info', 300 => 'warning', 400 => 'error');
+
+	public static function all() {
+		return self::LOGLEVEL;
+	}
+
+	public static function getId($loglevel) {
+		foreach (self::LOGLEVEL as $key => $value) {
+			if ($value==$loglevel) return $key;
+		}
+	}
+
+}
+
 class logmanager extends eqLogic {
 
 	public function preInsert() {
@@ -47,17 +62,16 @@ class logmanager extends eqLogic {
 	}
 
 	public function postSave() {
-		$loglevel = array('debug', 'info', 'warning', 'error');
 		$order = 0;
 
-		foreach ($loglevel as $log) {
-			$cmd = $this->getCmd(null, $log);
+		foreach (logManagerLevel::all() as $loglevel) {
+			$cmd = $this->getCmd(null, $loglevel);
 			if (!is_object($cmd)) {
 				$cmd = new logmanagerCmd();
-				$cmd->setLogicalId($log);
+				$cmd->setLogicalId($loglevel);
 				$cmd->setIsVisible(1);
 				$cmd->setOrder($order);
-				$cmd->setName(ucfirst($log));
+				$cmd->setName(ucfirst($loglevel));
 				$cmd->setType('action');
 				$cmd->setSubType('message');
 				$cmd->setEqLogic_id($this->getId());
@@ -85,29 +99,6 @@ class logmanager extends eqLogic {
 	public function postRemove() {
 		config::remove('log::level::'.$this->getName());
 	}
-
-	/*
-	 * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
-	  public function toHtml($_version = 'dashboard') {
-
-	  }
-	 */
-
-	/*
-	 * Non obligatoire mais ca permet de déclencher une action après modification de variable de configuration
-	public static function postConfig_<Variable>() {
-	}
-	 */
-
-	/*
-	 * Non obligatoire mais ca permet de déclencher une action avant modification de variable de configuration
-	public static function preConfig_<Variable>() {
-	}
-	 */
-
-
-	/*     * **********************Getteur Setteur*************************** */
-
 }
 
 class logmanagerCmd extends cmd {
@@ -125,7 +116,7 @@ class logmanagerCmd extends cmd {
 			log::add('logmanager', 'info', __('Message absent',__FILE__));
 			return;
 		}
-		$message =  trim($_options['message']);
+		$message = trim($_options['message']);
 		if (trim($message) == '') {
 			log::add('logmanager', 'info', __('Message vide',__FILE__));
 			return;
@@ -133,15 +124,22 @@ class logmanagerCmd extends cmd {
 
 		$eqlogic = $this->getEqLogic();
 		$logName = $eqlogic->getName();
-		$loglevel = $this->getLogicalId();
+		$logLevel = $this->getLogicalId();
+		$logLevelId = logManagerLevel::getId($logLevel);
+		$eventLevel = intval($eqlogic->getConfiguration('eventlevel', 9999));
 		$logLevelConfig = log::getLogLevel($logName);
 
-		log::add('logmanager', 'debug', "About to log a new message in {$logName} of level {$loglevel} with config {$logLevelConfig}");
-
+		log::add('logmanager', 'debug', "Log new message with level {$logLevel} in {$logName} with config {$logLevelConfig}");
 		try {
-			log::add($logName, $loglevel, $message);
+			log::add($logName, $logLevel, $message);
 		} catch (\Throwable $th) {
-			log::add('logmanager', 'error', $th->getMessage());
+			log::add('logmanager', 'error', "Erreur lors du log du message '{$message} dans le log '{$logName}': {$th->getMessage()}");
+		}
+
+		log::add('logmanager', 'debug', "New event? {$logLevelId} >= {$eventLevel}");
+		if ($logLevelId>=$eventLevel && $logLevelId>=$logLevelConfig) {
+			log::add('logmanager', 'debug', "Sending event for {$logLevel}");
+			jeedom::event("lm-{$logLevel}");
 		}
 	}
 }

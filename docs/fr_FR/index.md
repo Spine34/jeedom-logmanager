@@ -41,6 +41,14 @@ Chaque équipement (log) dispose d'une commande de type message par niveau de lo
 
 Il suffit d'appeler la commande voulue avec le message et le log sera écrit en fonction du niveau de log configuré sur l'équipement.
 
+Selon la configuration, un événement suivant sera généré par le plugin (seulement si le messag est réellement écrit dans le log).
+Cet événement peut-être utilisé comme déclencheur de scénario, c'est utile si vous voulez effectuer des actions personnalisées suite à un certain niveau de log écrit:
+
+- #lm-debug#
+- #lm-info#
+- #lm-warning#
+- #lm-error#
+
 # Le widget
 
 Un widget core standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
