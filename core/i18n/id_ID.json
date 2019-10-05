@@ -1,0 +1,43 @@
+{
+    "plugins\/logmanager\/desktop\/js\/logmanager.js": {
+        "Nom": "Nom",
+        "Historiser": "Historiser",
+        "Afficher": "Afficher",
+        "Unité": "Unité",
+        "Min": "Min",
+        "Max": "Max",
+        "Tester": "Tester"
+    },
+    "plugins\/logmanager\/desktop\/php\/logmanager.php": {
+        "Gestion": "Gestion",
+        "Ajouter": "Ajouter",
+        "Configuration": "Configuration",
+        "Documentation": "Documentation",
+        "Mes Logs": "Mes Logs",
+        "Rechercher": "Rechercher",
+        "Configuration avancée": "Configuration avancée",
+        "Supprimer": "Supprimer",
+        "Sauvegarder": "Sauvegarder",
+        "Equipement": "Equipement",
+        "Commandes": "Commandes",
+        "Nom de l'équipement": "Nom de l'équipement",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Catégorie": "Catégorie",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Niveau de log": "Niveau de log",
+        "Debug": "Debug",
+        "Info": "Info",
+        "Warning": "Warning",
+        "Erreur": "Erreur",
+        "Nom": "Nom",
+        "Paramètres": "Paramètres",
+        "Options": "Options",
+        "Actions": "Actions",
+        "Générer un événement": "Générer un événement",
+        "Désactivé": "Désactivé",
+        "Génére un événement #lm-debug#": "Génére un événement #lm-debug#",
+        "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.": "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario."
+    }
+}
