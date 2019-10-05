@@ -131,7 +131,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                 <div class="col-sm-3">
                                 </div>
                                 <div class="col-sm-9">
-                                    <div class="alert alert-info globalRemark" style="">{{Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.}}</div>
+                                    <div class="alert alert-info globalRemark">{{Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.}}</div>
                                 </div>
                             </div>
 						</fieldset>
