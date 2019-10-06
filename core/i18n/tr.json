@@ -37,7 +37,6 @@
         "Actions": "Actions",
         "Générer un événement": "Générer un événement",
         "Désactivé": "Désactivé",
-        "Génére un événement #lm-debug#": "Génére un événement #lm-debug#",
         "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.": "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario."
     }
 }
