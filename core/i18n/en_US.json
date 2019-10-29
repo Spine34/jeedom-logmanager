@@ -1,0 +1,42 @@
+{
+    "plugins\/logmanager\/desktop\/js\/logmanager.js": {
+        "Nom": "Name",
+        "Historiser": "Historize",
+        "Afficher": "Display",
+        "Unité": "Unit",
+        "Min": "Min",
+        "Max": "Max",
+        "Tester": "Test"
+    },
+    "plugins\/logmanager\/desktop\/php\/logmanager.php": {
+        "Gestion": "Management",
+        "Ajouter": "Add",
+        "Configuration": "Setup",
+        "Documentation": "Documentation",
+        "Mes Logs": "My Logs",
+        "Rechercher": "Search",
+        "Configuration avancée": "Advanced configuration",
+        "Supprimer": "Delete",
+        "Sauvegarder": "Save",
+        "Equipement": "Device",
+        "Commandes": "Commands",
+        "Nom de l'équipement": "Device name",
+        "Objet parent": "Parent object",
+        "Aucun": "None",
+        "Catégorie": "Category",
+        "Activer": "Enable",
+        "Visible": "Visible",
+        "Niveau de log": "Log level",
+        "Debug": "Debug",
+        "Info": "Info",
+        "Warning": "Warning",
+        "Erreur": "Error",
+        "Nom": "Name",
+        "Paramètres": "Settings",
+        "Options": "Options",
+        "Actions": "Actions",
+        "Générer un événement": "Generate an event",
+        "Désactivé": "Disabled",
+        "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.": "Generate an event #lm-debug#, #lm-info#, #lm-warning# or #lm-error# that can be used as a scenario trigger."
+    }
+}
