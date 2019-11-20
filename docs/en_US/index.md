@@ -19,14 +19,14 @@ In order to use the plugin, you must download, install and activate it like any 
 
 # Device configuration
 
-The plugin is in the Plugins > Programming menu.
-After creating new device, the usual options are available.
+Le plugin se trouve dans le menu Plugins > Programmation.
+Après avoir créé un nouvel équipement, les options habituelles sont disponible.
 
 One device corresponds to one log, the name of the device will be used as the name of the log file.
 
 > **Tip**
 >
-> In order to avoid potential problems, the name of the device must consist only of letters a to z, in lowercase, and the underscore character "_", the first character must be a letter.
+> Afin d'éviter des problèmes potentiels, le nom de l'équipement doit être uniquement composé des lettres de a à z, en miniscule, et du caractère souligné "_", le première caractère doit être une lettre.
 
 In addition, you can select the level of log to write: Debug, Info, Warning, Error.
 
@@ -52,3 +52,11 @@ This event can be used as a scenario trigger, it is useful if you want to perfor
 # Le widget
 
 A standard core widget will be displayed with the selected commands (to be configured in the "Commands" page of the device).
+
+# Changelog
+
+[Voir le changelog](./changelog)
+
+# Support
+
+Si malgré cette documentation et après voir lu les sujets en rapport avec le plugin sur [community]({{site.forum}}) vous ne trouvez pas de réponse à votre question, n'hésitez pas à créer un nouveau sujet en n'oubliant pas de mettre le tag du plugin ({{site.tagPlugin}}).
