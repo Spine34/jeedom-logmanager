@@ -19,14 +19,14 @@ In order to use the plugin, you must download, install and activate it like any 
 
 # Device configuration
 
-Le plugin se trouve dans le menu Plugins > Programmation.
-Après avoir créé un nouvel équipement, les options habituelles sont disponible.
+The plugin is in the Plugins > Programming menu.
+After creating new device, the usual options are available.
 
 One device corresponds to one log, the name of the device will be used as the name of the log file.
 
 > **Tip**
 >
-> Afin d'éviter des problèmes potentiels, le nom de l'équipement doit être uniquement composé des lettres de a à z, en miniscule, et du caractère souligné "_", le première caractère doit être une lettre.
+> In order to avoid potential problems, the name of the device must consist only of letters a to z, in lowercase, and the underscore character "_", the first character must be a letter.
 
 In addition, you can select the level of log to write: Debug, Info, Warning, Error.
 
@@ -55,8 +55,8 @@ A standard core widget will be displayed with the selected commands (to be confi
 
 # Changelog
 
-[Voir le changelog](./changelog)
+[See the changelog](./changelog)
 
 # Support
 
-Si malgré cette documentation et après voir lu les sujets en rapport avec le plugin sur [community]({{site.forum}}) vous ne trouvez pas de réponse à votre question, n'hésitez pas à créer un nouveau sujet en n'oubliant pas de mettre le tag du plugin ({{site.tagPlugin}}).
+If despite this documentation and after having read the topics related to the plugin on [community]({{site.forum}}) you do not find an answer to your question, do not hesitate to create a new topic with the tag of the plugin ({{site.tagPlugin}}).

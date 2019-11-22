@@ -1,15 +1,15 @@
 ---
 layout: default
 title: Changelog
-lang: fr_FR
+lang: en_US
 ---
 
 # Changelog
 
 ## 2019-10-04
 
-- Ajout de la génération d'un événement lors de l'écriture d'un log à utiliser comme déclencheur de scénario
+- Added generation of an event when writing a log to use as a scenario trigger
 
 ## 2019-09-05
 
-- Première version
+- First version
