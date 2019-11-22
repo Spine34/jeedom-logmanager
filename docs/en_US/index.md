@@ -52,3 +52,11 @@ This event can be used as a scenario trigger, it is useful if you want to perfor
 # Le widget
 
 A standard core widget will be displayed with the selected commands (to be configured in the "Commands" page of the device).
+
+# Changelog
+
+[See the changelog](./changelog)
+
+# Support
+
+If despite this documentation and after having read the topics related to the plugin on [community]({{site.forum}}) you do not find an answer to your question, do not hesitate to create a new topic with the tag of the plugin ({{site.tagPlugin}}).

@@ -20,13 +20,13 @@ Afin d’utiliser le plugin, vous devez le télécharger, l’installer et l’a
 # Configuration de l'équipement
 
 Le plugin se trouve dans le menu Plugins > Programmation.
-Après avoir créé un nouvel équipement, les options habituelles sont disponnible.
+Après avoir créé un nouvel équipement, les options habituelles sont disponible.
 
 Un équipement correspond à un log, le nom de l'équipement sera utilisé comme nom du fichier log.
 
 > **Tip**
 >
-> Afin d'éviter des problèmes potentiels, le nom de l'équipementd doit être uniquement composé des lettres de a à z, en miniscule, et du caractère souligné "_", le première caractère doit être une lettre.
+> Afin d'éviter des problèmes potentiels, le nom de l'équipement doit être uniquement composé des lettres de a à z, en miniscule, et du caractère souligné "_", le première caractère doit être une lettre.
 
 De plus, vous pouvez sélectionner le niveau de log à écrire: Debug, Info, Warning, Erreur.
 
@@ -52,3 +52,11 @@ Cet événement peut-être utilisé comme déclencheur de scénario, c'est utile
 # Le widget
 
 Un widget core standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
+
+# Changelog
+
+[Voir le changelog](./changelog)
+
+# Support
+
+Si malgré cette documentation et après voir lu les sujets en rapport avec le plugin sur [community]({{site.forum}}) vous ne trouvez pas de réponse à votre question, n'hésitez pas à créer un nouveau sujet en n'oubliant pas de mettre le tag du plugin ({{site.tagPlugin}}).
