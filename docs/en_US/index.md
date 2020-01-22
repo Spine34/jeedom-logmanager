@@ -51,12 +51,17 @@ This event can be used as a scenario trigger, it is useful if you want to perfor
 
 # Le widget
 
-A standard core widget will be displayed with the selected commands (to be configured in the "Commands" page of the device).
+Il y a deux options:
+
+- soit le contenu du log sera affiché sur la tuile, sans les commandes de l'équipement.
+- soit un widget standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
+
+Le choix s'effectue dans la configuration de l'équipement.
 
 # Changelog
 
-[See the changelog](./changelog)
+[Voir le changelog](./changelog)
 
 # Support
 
-If despite this documentation and after having read the topics related to the plugin on [community]({{site.forum}}) you do not find an answer to your question, do not hesitate to create a new topic with the tag of the plugin ({{site.tagPlugin}}).
+Si malgré cette documentation et après voir lu les sujets en rapport avec le plugin sur [community]({{site.forum}}) vous ne trouvez pas de réponse à votre question, n'hésitez pas à créer un nouveau sujet en n'oubliant pas de mettre le tag du plugin ({{site.tagPlugin}}).

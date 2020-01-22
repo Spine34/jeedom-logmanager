@@ -51,7 +51,12 @@ Cet événement peut-être utilisé comme déclencheur de scénario, c'est utile
 
 # Le widget
 
-Un widget core standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
+Il y a deux options:
+
+- soit le contenu du log sera affiché sur la tuile, sans les commandes de l'équipement.
+- soit un widget standard sera affiché avec les commandes sélectionnées (à configurer dans la page "Commandes" de l'équipement).
+
+Le choix s'effectue dans la configuration de l'équipement.
 
 # Changelog
 

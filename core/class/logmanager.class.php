@@ -36,6 +36,20 @@ class logManagerLevel {
 
 class logmanager extends eqLogic {
 
+	public static $_widgetPossibility = array(
+        'custom' => array(
+            'visibility' => true,
+            'displayName' => true,
+            'displayObjectName' => true,
+            'optionalParameters' => false,
+            'background-color' => true,
+            'background-opacity' => true,
+            'text-color' => true,
+            'border-radius' => true,
+            'border' => true
+        )
+    );
+
 	public function preInsert() {
 		$this->setConfiguration('loglevel', '100');
 		$this->setIsEnable(1);
@@ -82,6 +96,8 @@ class logmanager extends eqLogic {
 		}
 		$logConfig = array($this->getConfiguration('loglevel', '100') => '1', 'default' => '0');
 		config::save('log::level::'.$this->getName(), $logConfig);
+
+		$this->refreshWidget();
 	}
 
 	public function preUpdate() {
@@ -98,6 +114,70 @@ class logmanager extends eqLogic {
 
 	public function postRemove() {
 		config::remove('log::level::'.$this->getName());
+	}
+
+	public function toHtml($_version = 'dashboard') {
+		if ($this->getConfiguration('displayContentWidget', 0) == 0) {
+			return parent::toHtml($_version);
+		}
+
+		$replace = $this->preToHtml($_version);
+		if (!is_array($replace)) {
+			return $replace;
+		}
+		$version = jeedom::versionAlias($_version);
+
+		switch ($this->getDisplay('layout::' . $version)) {
+			case 'table':
+			$replace['#eqLogic_class#'] = 'eqLogic_layout_table';
+			$table = self::generateHtmlTable($this->getDisplay('layout::' . $version . '::table::nbLine', 1), $this->getDisplay('layout::' . $version . '::table::nbColumn', 1), $this->getDisplay('layout::' . $version . '::table::parameters'));
+			$br_before = 0;
+			foreach ($this->getCmd(null, null, true) as $cmd) {
+				if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
+					continue;
+				}
+				$tag = '#cmd::' . $this->getDisplay('layout::' . $version . '::table::cmd::' . $cmd->getId() . '::line', 1) . '::' . $this->getDisplay('layout::' . $version . '::table::cmd::' . $cmd->getId() . '::column', 1) . '#';
+				if ($br_before == 0 && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
+					$table['tag'][$tag] .= '<br/>';
+				}
+				$table['tag'][$tag] .= $cmd->toHtml($_version, '', $replace['#cmd-background-color#']);
+				$br_before = 0;
+				if ($cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
+					$table['tag'][$tag] .= '<br/>';
+					$br_before = 1;
+				}
+			}
+			$replace['#cmd#'] = template_replace($table['tag'], $table['html']);
+			break;
+			default:
+			$replace['#eqLogic_class#'] = 'eqLogic_layout_default';
+			$cmd_html = '';
+			$br_before = 0;
+			foreach ($this->getCmd(null, null, true) as $cmd) {
+				if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
+					continue;
+				}
+				if ($br_before == 0 && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
+					$cmd_html .= '<br/>';
+				}
+				$cmd_html .= $cmd->toHtml($_version, '', $replace['#cmd-background-color#']);
+				$br_before = 0;
+				if ($cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
+					$cmd_html .= '<br/>';
+					$br_before = 1;
+				}
+			}
+			$replace['#cmd#'] = $cmd_html;
+			break;
+		}
+
+		$content = '';
+		foreach (log::get($this->getName(), 0, 9999) as $line) {
+			$content .= $line.'<br/>';
+		}
+		$replace['#logContent#'] = $content;
+
+		return template_replace($replace, getTemplate('core', $version, 'logmanager', __CLASS__));
 	}
 }
 
@@ -132,6 +212,9 @@ class logmanagerCmd extends cmd {
 		log::add('logmanager', 'debug', "Log new message with level {$logLevel} in {$logName} with config {$logLevelConfig}");
 		try {
 			log::add($logName, $logLevel, $message);
+			if ($eqlogic->getConfiguration('displayContentWidget', 0) == 1) {
+				$eqlogic->refreshWidget();
+			}
 		} catch (\Throwable $th) {
 			log::add('logmanager', 'error', "Erreur lors du log du message '{$message} dans le log '{$logName}': {$th->getMessage()}");
 		}
