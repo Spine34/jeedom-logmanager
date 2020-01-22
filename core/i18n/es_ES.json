@@ -37,6 +37,12 @@
         "Actions": "Actions",
         "Générer un événement": "Générer un événement",
         "Désactivé": "Désactivé",
-        "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.": "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario."
+        "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.": "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.",
+        "Si le contenu du log est affiché, les commandes ne le seront pas.": "Si le contenu du log est affiché, les commandes ne le seront pas.",
+        "Tuile": "Tuile",
+        "Afficher le contenu du log sur la tuile": "Afficher le contenu du log sur la tuile"
+    },
+    "plugins\/logmanager\/core\/class\/logmanager.class.php": {
+        "Message vide": "Message vide"
     }
 }
