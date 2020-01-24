@@ -38,11 +38,11 @@
         "Générer un événement": "Generate an event",
         "Désactivé": "Disabled",
         "Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.": "Generate an event #lm-debug#, #lm-info#, #lm-warning# or #lm-error# that can be used as a scenario trigger.",
-        "Si le contenu du log est affiché, les commandes ne le seront pas.": "Si le contenu du log est affiché, les commandes ne le seront pas.",
-        "Tuile": "Tuile",
-        "Afficher le contenu du log sur la tuile": "Afficher le contenu du log sur la tuile"
+        "Si le contenu du log est affiché, les commandes ne le seront pas.": "If the contents of the log is displayed, the commands will not.",
+        "Tuile": "Widget",
+        "Afficher le contenu du log sur la tuile": "Display the contents of the log on the widget"
     },
     "plugins\/logmanager\/core\/class\/logmanager.class.php": {
-        "Message vide": "Message vide"
+        "Message vide": "Empty message"
     }
 }
