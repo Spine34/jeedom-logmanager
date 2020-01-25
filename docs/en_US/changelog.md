@@ -8,12 +8,12 @@ lang: en_US
 
 ## 2019-09-05
 
-- Première version
+- First version
 
 ## 2019-10-04
 
-- Ajout de la génération d'un événement lors de l'écriture d'un log à utiliser comme déclencheur de scénario
+- Added generation of an event when writing a log to use as a scenario trigger
 
 ## 2020-01-22
 
-- Ajout d'une option pour afficher le contenu du log sur la tuile
+- Add an option to display the contents of the log on the widget
