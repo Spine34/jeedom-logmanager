@@ -9,8 +9,8 @@
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://mips2648.gitlab.io/logmanager/#language#/changelog",
-	"documentation" : "https://mips2648.gitlab.io/logmanager/#language#/",
+	"changelog" : "https://mips2648.gitlab.io/jeedom-logmanager/#language#/changelog",
+	"documentation" : "https://mips2648.gitlab.io/jeedom-logmanager/#language#/",
 	"link" : {
 		"forum":"https://community.jeedom.com/tags/plugin-logmanager",
 		"video" : ""
