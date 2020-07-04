@@ -37,18 +37,18 @@ class logManagerLevel {
 class logmanager extends eqLogic {
 
 	public static $_widgetPossibility = array(
-        'custom' => array(
-            'visibility' => true,
-            'displayName' => true,
-            'displayObjectName' => true,
-            'optionalParameters' => false,
-            'background-color' => true,
-            'background-opacity' => true,
-            'text-color' => true,
-            'border-radius' => true,
-            'border' => true
-        )
-    );
+		'custom' => array(
+			'visibility' => true,
+			'displayName' => true,
+			'displayObjectName' => true,
+			'optionalParameters' => false,
+			'background-color' => true,
+			'background-opacity' => true,
+			'text-color' => true,
+			'border-radius' => true,
+			'border' => true
+		)
+	);
 
 	public function preInsert() {
 		$this->setConfiguration('loglevel', '100');
@@ -84,7 +84,7 @@ class logmanager extends eqLogic {
 				$cmd = new logmanagerCmd();
 				$cmd->setLogicalId($loglevel);
 				$cmd->setIsVisible(1);
-				$cmd->setOrder($order);
+				$cmd->setOrder($order++);
 				$cmd->setName(ucfirst($loglevel));
 				$cmd->setType('action');
 				$cmd->setSubType('message');
@@ -92,8 +92,33 @@ class logmanager extends eqLogic {
 				$cmd->setDisplay('title_disable', 1);
 				$cmd->save();
 			}
-			++$order;
 		}
+
+		$cmd = $this->getCmd(null, 'clear');
+		if (!is_object($cmd)) {
+			$cmd = new logmanagerCmd();
+			$cmd->setLogicalId('clear');
+			$cmd->setIsVisible(1);
+			$cmd->setOrder(4);
+			$cmd->setName(__('Vider', __FILE__));
+			$cmd->setType('action');
+			$cmd->setSubType('other');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->save();
+		}
+		$cmd = $this->getCmd(null, 'remove');
+		if (!is_object($cmd)) {
+			$cmd = new logmanagerCmd();
+			$cmd->setLogicalId('remove');
+			$cmd->setIsVisible(1);
+			$cmd->setOrder(5);
+			$cmd->setName(__('Supprimer', __FILE__));
+			$cmd->setType('action');
+			$cmd->setSubType('other');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->save();
+		}
+
 		$logConfig = array($this->getConfiguration('loglevel', '100') => '1', 'default' => '0');
 		config::save('log::level::'.$this->getName(), $logConfig);
 
@@ -179,6 +204,34 @@ class logmanager extends eqLogic {
 
 		return template_replace($replace, getTemplate('core', $version, 'logmanager', __CLASS__));
 	}
+
+	public function checkAndRefreshWidget() {
+		if ($this->getConfiguration('displayContentWidget', 0) == 1) {
+			$this->refreshWidget();
+		}
+	}
+
+	public function addLog($logLevel, $message) {
+		$logName = $this->getName();
+
+		$logLevelId = logManagerLevel::getId($logLevel);
+		$eventLevel = intval($this->getConfiguration('eventlevel', 9999));
+		$logLevelConfig = log::getLogLevel($logName);
+
+		log::add('logmanager', 'debug', "Log new message with level {$logLevel} in {$logName} with config {$logLevelConfig}");
+		try {
+			log::add($logName, $logLevel, $message);
+			$this->checkAndRefreshWidget();
+		} catch (\Throwable $th) {
+			log::add('logmanager', 'error', "Erreur lors du log du message '{$message} dans le log '{$logName}': {$th->getMessage()}");
+		}
+
+		log::add('logmanager', 'debug', "New event? {$logLevelId} >= {$eventLevel}");
+		if ($logLevelId>=$eventLevel && $logLevelId>=$logLevelConfig) {
+			log::add('logmanager', 'debug', "Sending event for {$logLevel}");
+			jeedom::event("lm-{$logLevel}");
+		}
+	}
 }
 
 class logmanagerCmd extends cmd {
@@ -187,6 +240,21 @@ class logmanagerCmd extends cmd {
 	}
 
 	public function execute($_options = array()) {
+		$eqlogic = $this->getEqLogic();
+		$logName = $eqlogic->getName();
+
+		switch ($this->getLogicalId()) {
+			case 'clear':
+				log::add('logmanager', 'debug', "Clear log {$logName}");
+				log::clear($logName);
+				$eqlogic->checkAndRefreshWidget();
+				return;
+			case 'remove':
+				log::add('logmanager', 'debug', "Remove log {$logName}");
+				log::remove($logName);
+				$eqlogic->checkAndRefreshWidget();
+				return;
+		}
 
 		if (!is_array($_options)) {
 			log::add('logmanager', 'error', __('Options invalides',__FILE__));
@@ -197,32 +265,11 @@ class logmanagerCmd extends cmd {
 			return;
 		}
 		$message = trim($_options['message']);
-		if (trim($message) == '') {
+		if ($message == '') {
 			log::add('logmanager', 'info', __('Message vide',__FILE__));
 			return;
 		}
 
-		$eqlogic = $this->getEqLogic();
-		$logName = $eqlogic->getName();
-		$logLevel = $this->getLogicalId();
-		$logLevelId = logManagerLevel::getId($logLevel);
-		$eventLevel = intval($eqlogic->getConfiguration('eventlevel', 9999));
-		$logLevelConfig = log::getLogLevel($logName);
-
-		log::add('logmanager', 'debug', "Log new message with level {$logLevel} in {$logName} with config {$logLevelConfig}");
-		try {
-			log::add($logName, $logLevel, $message);
-			if ($eqlogic->getConfiguration('displayContentWidget', 0) == 1) {
-				$eqlogic->refreshWidget();
-			}
-		} catch (\Throwable $th) {
-			log::add('logmanager', 'error', "Erreur lors du log du message '{$message} dans le log '{$logName}': {$th->getMessage()}");
-		}
-
-		log::add('logmanager', 'debug', "New event? {$logLevelId} >= {$eventLevel}");
-		if ($logLevelId>=$eventLevel && $logLevelId>=$logLevelConfig) {
-			log::add('logmanager', 'debug', "Sending event for {$logLevel}");
-			jeedom::event("lm-{$logLevel}");
-		}
+		$eqlogic->addLog($this->getLogicalId(), $message);
 	}
 }
