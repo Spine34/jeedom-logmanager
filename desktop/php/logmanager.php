@@ -36,14 +36,14 @@ $eqLogics = eqLogic::byType($plugin->getId());
 	<input class="form-control" placeholder="{{Rechercher}}" style="margin-bottom:4px;" id="in_searchEqlogic" />
 	<div class="eqLogicThumbnailContainer">
 		<?php
-		foreach ($eqLogics as $eqLogic) {
-			$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
-			echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="text-align: center; background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
-			echo '<img src="' . $eqLogic->getImage() . '" height="105" width="95" />';
-			echo "<br>";
-			echo '<span class="name" style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;">' . $eqLogic->getHumanName(true, true) . '</span>';
-			echo '</div>';
-		}
+        foreach ($eqLogics as $eqLogic) {
+            $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+            echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
+            echo '<img src="' . $eqLogic->getImage() . '"/>';
+            echo "<br>";
+            echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+            echo '</div>';
+        }
 		?>
 	</div>
 </div>
