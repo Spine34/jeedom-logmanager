@@ -139,6 +139,7 @@ class logmanager extends eqLogic {
 
 	public function postRemove() {
 		config::remove('log::level::'.$this->getName());
+		log::remove($this->getName());
 	}
 
 	public function toHtml($_version = 'dashboard') {
