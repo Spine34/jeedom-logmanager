@@ -68,8 +68,7 @@ class logmanager extends eqLogic {
 			'ú' => 'u', 'ù' => 'u', 'û' => 'u', 'ü' => 'u'
 		);
 
-		$name = strtolower($this->getName());
-		$name = ltrim($name, '_');
+		$name = ltrim($this->getName(), '_');
 		$name = strtr($name, $replaceChars);
 		$name = preg_replace("/[^a-zA-Z_]/", "", $name);
 		$this->setName($name);
