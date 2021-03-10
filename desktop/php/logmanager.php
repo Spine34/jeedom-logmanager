@@ -140,6 +140,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="displayContentWidget"/>{{Afficher le contenu du log sur la tuile}}</label>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-xs-2 control-label help">{{Nombre de lignes à afficher}}</label>
+								<div class="col-xs-1">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="nbrLinesWidget" placeholder="1000"/>
+								</div>
+							</div>
 						</fieldset>
 					</form>
 				</div>
