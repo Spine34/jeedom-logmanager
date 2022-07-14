@@ -28,10 +28,9 @@ class logManagerLevel {
 
 	public static function getId($loglevel) {
 		foreach (self::LOGLEVEL as $key => $value) {
-			if ($value==$loglevel) return $key;
+			if ($value == $loglevel) return $key;
 		}
 	}
-
 }
 
 class logmanager extends eqLogic {
@@ -56,7 +55,6 @@ class logmanager extends eqLogic {
 	}
 
 	public function postInsert() {
-
 	}
 
 	public function preSave() {
@@ -127,25 +125,13 @@ class logmanager extends eqLogic {
 		}
 
 		$logConfig = array($this->getConfiguration('loglevel', '100') => '1', 'default' => '0');
-		config::save('log::level::'.$this->getName(), $logConfig);
+		config::save('log::level::' . $this->getName(), $logConfig);
 
 		$this->refreshWidget();
 	}
 
-	public function preUpdate() {
-
-	}
-
-	public function postUpdate() {
-
-	}
-
-	public function preRemove() {
-
-	}
-
 	public function postRemove() {
-		config::remove('log::level::'.$this->getName());
+		config::remove('log::level::' . $this->getName());
 		log::remove($this->getName());
 	}
 
@@ -208,7 +194,7 @@ class logmanager extends eqLogic {
 		$maxLines = $this->getConfiguration('nbrLinesWidget', 1000);
 		$linesDisplayed = 0;
 		foreach (log::get($this->getName(), 0, -1) as $line) {
-			$content .= $line.'<br/>';
+			$content .= $line . '<br/>';
 			if (++$linesDisplayed == $maxLines) break;
 		}
 		$replace['#logContent#'] = $content;
@@ -238,7 +224,7 @@ class logmanager extends eqLogic {
 		}
 
 		log::add('logmanager', 'debug', "New event? {$logLevelId} >= {$eventLevel}");
-		if ($logLevelId>=$eventLevel && $logLevelId>=$logLevelConfig) {
+		if ($logLevelId >= $eventLevel && $logLevelId >= $logLevelConfig) {
 			log::add('logmanager', 'debug', "Sending event for {$logLevel}");
 			jeedom::event("lm-{$logLevel}");
 		}
@@ -268,16 +254,16 @@ class logmanagerCmd extends cmd {
 		}
 
 		if (!is_array($_options)) {
-			log::add('logmanager', 'error', __('Options invalides',__FILE__));
+			log::add('logmanager', 'error', __('Options invalides', __FILE__));
 			return;
 		}
 		if (!isset($_options['message'])) {
-			log::add('logmanager', 'info', __('Message absent',__FILE__));
+			log::add('logmanager', 'info', __('Message absent', __FILE__));
 			return;
 		}
 		$message = trim($_options['message']);
 		if ($message == '') {
-			log::add('logmanager', 'info', __('Message vide',__FILE__));
+			log::add('logmanager', 'info', __('Message vide', __FILE__));
 			return;
 		}
 
