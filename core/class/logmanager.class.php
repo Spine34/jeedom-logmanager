@@ -20,7 +20,7 @@
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
 
 class logManagerLevel {
-	const LOGLEVEL = array(100 => 'debug', 200 => 'info', 300 => 'warning', 400 => 'error');
+	public const LOGLEVEL = array(100 => 'debug', 200 => 'info', 300 => 'warning', 400 => 'error');
 
 	public static function all() {
 		return self::LOGLEVEL;

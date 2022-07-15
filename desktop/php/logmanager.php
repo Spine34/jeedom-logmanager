@@ -4,6 +4,7 @@ if (!isConnect('admin')) {
 }
 $plugin = plugin::byId('logmanager');
 sendVarToJS('eqType', $plugin->getId());
+/** @var logmanager[] */
 $eqLogics = eqLogic::byType($plugin->getId());
 ?>
 
@@ -32,11 +33,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<span>Community</span>
 			</div>
 		</div>
-		<legend><i class="fas fa-table"></i> {{Mes Logs}}</legend>
+		<legend><i class="fas fa-file-alt"></i> {{Mes Logs}}</legend>
 		<div class="input-group" style="margin:5px;">
 			<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 			<div class="input-group-btn">
-				<a id="bt_resetSearch" class="btn roundedRight" style="width:30px"><i class="fas fa-times"></i></a>
+				<a id="bt_resetSearch" class="btn" style="width:30px"><i class="fas fa-times"></i>
+				</a><a class="btn roundedRight hidden" id="bt_pluginDisplayAsTable" data-coreSupport="1" data-state="0"><i class="fas fa-grip-lines"></i></a>
 			</div>
 		</div>
 		<div class="eqLogicThumbnailContainer">
@@ -47,6 +49,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				echo '<img src="' . $eqLogic->getImage() . '"/>';
 				echo "<br>";
 				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+				echo '<span class="hiddenAsCard displayTableRight hidden">';
+				echo '<span class="label label-info">' . ucfirst(logManagerLevel::LOGLEVEL[$eqLogic->getConfiguration('loglevel', 100)]) . '</span>';
+				echo ($eqLogic->getIsVisible() == 1) ? '<i class="fas fa-eye" title="{{Equipement visible}}"></i>' : '<i class="fas fa-eye-slash" title="{{Equipement non visible}}"></i>';
+				echo '</span>';
 				echo '</div>';
 			}
 			?>
@@ -121,10 +127,13 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<label class="col-xs-2 control-label">{{Niveau de log}}</label>
 									<div class="col-xs-2">
 										<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="loglevel">
-											<option value="100">{{Debug}}</option>
-											<option value="200">{{Info}}</option>
-											<option value="300">{{Warning}}</option>
-											<option value="400">{{Erreur}}</option>
+											<?php
+											$options = '';
+											foreach (logManagerLevel::LOGLEVEL as $key => $value) {
+												$options .= '<option value="' . $key . '">' . ucfirst($value) . '</option>';
+											}
+											echo $options;
+											?>
 										</select>
 									</div>
 								</div>
@@ -133,10 +142,13 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<div class="col-xs-2">
 										<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="eventlevel">
 											<option value="">{{Désactivé}}</option>
-											<option value="100">{{Debug}}</option>
-											<option value="200">{{Info}}</option>
-											<option value="300">{{Warning}}</option>
-											<option value="400">{{Erreur}}</option>
+											<?php
+											$options = '';
+											foreach (logManagerLevel::LOGLEVEL as $key => $value) {
+												$options .= '<option value="' . $key . '">' . ucfirst($value) . '</option>';
+											}
+											echo $options;
+											?>
 										</select>
 									</div>
 									<div class="col-xs-1">
