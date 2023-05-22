@@ -76,103 +76,102 @@ $eqLogics = eqLogic::byType($plugin->getId());
 		</ul>
 		<div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
 			<div role="tabpanel" class="tab-pane active" id="eqlogictab">
-				<br />
-				<div class="row">
-					<div class="col-xs-12">
-						<form class="form-horizontal">
-							<fieldset>
-								<div class="form-group">
-									<label class="col-xs-2 control-label">{{Nom de l'équipement}}</label>
-									<div class="col-xs-2">
-										<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-										<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}" />
-									</div>
+
+
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="col-lg-7">
+							<legend><i class="fas fa-wrench"></i> {{Paramètres généraux}}</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
+								<div class="col-sm-6">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
+									<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}" />
 								</div>
-								<div class="form-group">
-									<label class="col-xs-2 control-label">{{Objet parent}}</label>
-									<div class="col-xs-2">
-										<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
-											<option value="">{{Aucun}}</option>
-											<?php
-											$options = '';
-											foreach ((jeeObject::buildTree(null, false)) as $object) {
-												$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
-											}
-											echo $options;
-											?>
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-xs-2 control-label">{{Catégorie}}</label>
-									<div class="col-xs-7">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Objet parent}}</label>
+								<div class="col-sm-6">
+									<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
+										<option value="">{{Aucun}}</option>
 										<?php
-										foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-											echo '<label class="checkbox-inline">';
-											echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
-											echo '</label>';
+										$options = '';
+										foreach ((jeeObject::buildTree(null, false)) as $object) {
+											$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
 										}
+										echo $options;
 										?>
-									</div>
+									</select>
 								</div>
-								<div class="form-group">
-									<label class="col-xs-2 control-label"></label>
-									<div class="col-xs-7">
-										<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked />{{Activer}}</label>
-										<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked />{{Visible}}</label>
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Catégorie}}</label>
+								<div class="col-sm-9">
+									<?php
+									foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
+										echo '<label class="checkbox-inline">';
+										echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
+										echo '</label>';
+									}
+									?>
 								</div>
-								<br />
-								<div class="form-group">
-									<label class="col-xs-2 control-label">{{Niveau de log}}</label>
-									<div class="col-xs-2">
-										<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="loglevel">
-											<?php
-											$options = '';
-											foreach (logManagerLevel::LOGLEVEL as $key => $value) {
-												$options .= '<option value="' . $key . '">' . ucfirst($value) . '</option>';
-											}
-											echo $options;
-											?>
-										</select>
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Options}}</label>
+								<div class="col-sm-6">
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked />{{Activer}}</label>
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked />{{Visible}}</label>
 								</div>
-								<div class="form-group">
-									<label class="col-xs-2 control-label help" data-help="Générer un événement pour tout log écrit à partir du niveau de log sélectionné">{{Générer un événement}}</label>
-									<div class="col-xs-2">
-										<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="eventlevel">
-											<option value="">{{Désactivé}}</option>
-											<?php
-											$options = '';
-											foreach (logManagerLevel::LOGLEVEL as $key => $value) {
-												$options .= '<option value="' . $key . '">' . ucfirst($value) . '</option>';
-											}
-											echo $options;
-											?>
-										</select>
-									</div>
-									<div class="col-xs-1">
-									</div>
-									<div class="col-xs-7">
-										<div class="alert alert-info globalRemark">{{Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.}}</div>
-									</div>
+							</div>
+
+							<legend><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Niveau de log}}</label>
+								<div class="col-sm-3">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="loglevel">
+										<?php
+										$options = '';
+										foreach (logManagerLevel::LOGLEVEL as $key => $value) {
+											$options .= '<option value="' . $key . '">' . ucfirst($value) . '</option>';
+										}
+										echo $options;
+										?>
+									</select>
 								</div>
-								<div class="form-group">
-									<label class="col-xs-2 control-label help" data-help="Si le contenu du log est affiché, les commandes ne le seront pas.">{{Tuile}}</label>
-									<div class="col-xs-3">
-										<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="displayContentWidget" />{{Afficher le contenu du log sur la tuile}}</label>
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label help" data-help="Générer un événement pour tout log écrit à partir du niveau de log sélectionné">{{Générer un événement}}</label>
+								<div class="col-sm-3">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="eventlevel">
+										<option value="">{{Désactivé}}</option>
+										<?php
+										$options = '';
+										foreach (logManagerLevel::LOGLEVEL as $key => $value) {
+											$options .= '<option value="' . $key . '">' . ucfirst($value) . '</option>';
+										}
+										echo $options;
+										?>
+									</select>
 								</div>
-								<div class="form-group">
-									<label class="col-xs-2 control-label help">{{Nombre de lignes à afficher}}</label>
-									<div class="col-xs-1">
-										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="nbrLinesWidget" placeholder="1000" />
-									</div>
+								<div class="col-sm-6">
+									<div class="alert alert-info globalRemark">{{Génére un événement #lm-debug#, #lm-info#, #lm-warning# ou #lm-error# qui peut être utilisé comme déclencheur de scénario.}}</div>
 								</div>
-							</fieldset>
-						</form>
-					</div>
-				</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label help" data-help="Si le contenu du log est affiché, les commandes ne le seront pas.">{{Tuile}}</label>
+								<div class="col-sm-6">
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="displayContentWidget" />{{Afficher le contenu du log sur la tuile}}</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label help">{{Nombre de lignes à afficher}}</label>
+								<div class="col-sm-3">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="nbrLinesWidget" placeholder="1000" />
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="commandtab">
 				<div class="table-responsive">
