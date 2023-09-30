@@ -72,7 +72,7 @@ class logmanager extends eqLogic {
 		$this->setName($name);
 
 		$nbrLines = $this->getConfiguration('nbrLinesWidget');
-		if (!is_numeric($nbrLines) || $nbrLines < 1) {
+		if (!is_numeric($nbrLines) || $nbrLines < 1 || $nbrLines > 3000) {
 			$nbrLines = '';
 		} else {
 			$nbrLines = round($nbrLines);
@@ -192,9 +192,15 @@ class logmanager extends eqLogic {
 
 		$content = '';
 		$maxLines = $this->getConfiguration('nbrLinesWidget', 1000);
+		$topToBottom = $this->getConfiguration('topToBottom', 0) == 1 ? true : false;
 		$linesDisplayed = 0;
-		foreach (log::get($this->getName(), 0, -1) as $line) {
-			$content .= $line . '<br/>';
+		foreach (log::get($this->getName(), 0, 3000) as $line) {
+
+			if ($topToBottom) {
+				$content = $line . '<br/>' . $content;
+			} else {
+				$content .= $line . '<br/>';
+			}
 			if (++$linesDisplayed == $maxLines) break;
 		}
 		$replace['#logContent#'] = $content;
@@ -237,6 +243,7 @@ class logmanagerCmd extends cmd {
 	}
 
 	public function execute($_options = array()) {
+		/** @var logmanager */
 		$eqlogic = $this->getEqLogic();
 		$logName = $eqlogic->getName();
 

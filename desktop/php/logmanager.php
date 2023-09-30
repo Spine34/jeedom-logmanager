@@ -158,15 +158,21 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label help" data-help="Si le contenu du log est affiché, les commandes ne le seront pas.">{{Tuile}}</label>
+								<label class="col-sm-3 control-label help" data-help="{{Si le contenu du log est affiché, les commandes ne le seront pas.}}">{{Tuile}}</label>
 								<div class="col-sm-6">
 									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="displayContentWidget" />{{Afficher le contenu du log sur la tuile}}</label>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label help">{{Nombre de lignes à afficher}}</label>
+								<label class="col-sm-3 control-label help" data-help="{{entre 0 et 3000}}">{{Nombre de lignes à afficher}}</label>
 								<div class="col-sm-3">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="nbrLinesWidget" placeholder="1000" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label help" data-help="{{Par défaut les entrées les plus récentes sont affichées en haut et les plus anciennes en bas}}">{{Ordre d'affichage}}</label>
+								<div class="col-sm-6">
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="topToBottom" />{{Afficher par ordre chronologique}}</label>
 								</div>
 							</div>
 						</div>
