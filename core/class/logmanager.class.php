@@ -49,15 +49,26 @@ class logmanager extends eqLogic {
 		)
 	);
 
+	private function throwExceptionIfInvalidLogname() {
+		try {
+			plugin::byId($this->getName());
+		} catch (\Throwable $th) {
+			return;
+		}
+		throw new Exception("Le nom de l'équipement choisi ({$this->getName()}) n'est pas autorisé car il correspond à un plugin installé sur votre Jeedom.");
+	}
+
+
 	public function preInsert() {
+		$this->throwExceptionIfInvalidLogname();
+
 		$this->setConfiguration('loglevel', '100');
 		$this->setIsEnable(1);
 	}
 
-	public function postInsert() {
-	}
-
 	public function preSave() {
+		$this->throwExceptionIfInvalidLogname();
+
 		$replaceChars = array(
 			'á' => 'a', 'à' => 'a', 'â' => 'a', 'ä' => 'a',
 			'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
@@ -131,8 +142,12 @@ class logmanager extends eqLogic {
 	}
 
 	public function postRemove() {
-		config::remove('log::level::' . $this->getName());
-		log::remove($this->getName());
+		try {
+			plugin::byId($this->getName());
+		} catch (\Throwable $th) {
+			config::remove('log::level::' . $this->getName());
+			log::remove($this->getName());
+		}
 	}
 
 	public function toHtml($_version = 'dashboard') {
@@ -215,8 +230,9 @@ class logmanager extends eqLogic {
 	}
 
 	public function addLog($logLevel, $message) {
-		$logName = $this->getName();
+		$this->throwExceptionIfInvalidLogname();
 
+		$logName = $this->getName();
 		$logLevelId = logManagerLevel::getId($logLevel);
 		$eventLevel = intval($this->getConfiguration('eventlevel', 9999));
 		$logLevelConfig = log::getLogLevel($logName);
