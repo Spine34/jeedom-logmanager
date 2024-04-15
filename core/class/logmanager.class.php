@@ -161,50 +161,6 @@ class logmanager extends eqLogic {
 		}
 		$version = jeedom::versionAlias($_version);
 
-		switch ($this->getDisplay('layout::' . $version)) {
-			case 'table':
-				$replace['#eqLogic_class#'] = 'eqLogic_layout_table';
-				$table = self::generateHtmlTable($this->getDisplay('layout::' . $version . '::table::nbLine', 1), $this->getDisplay('layout::' . $version . '::table::nbColumn', 1), $this->getDisplay('layout::' . $version . '::table::parameters'));
-				$br_before = 0;
-				foreach ($this->getCmd(null, null, true) as $cmd) {
-					if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
-						continue;
-					}
-					$tag = '#cmd::' . $this->getDisplay('layout::' . $version . '::table::cmd::' . $cmd->getId() . '::line', 1) . '::' . $this->getDisplay('layout::' . $version . '::table::cmd::' . $cmd->getId() . '::column', 1) . '#';
-					if ($br_before == 0 && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
-						$table['tag'][$tag] .= '<br/>';
-					}
-					$table['tag'][$tag] .= $cmd->toHtml($_version, '', $replace['#cmd-background-color#']);
-					$br_before = 0;
-					if ($cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
-						$table['tag'][$tag] .= '<br/>';
-						$br_before = 1;
-					}
-				}
-				$replace['#cmd#'] = template_replace($table['tag'], $table['html']);
-				break;
-			default:
-				$replace['#eqLogic_class#'] = 'eqLogic_layout_default';
-				$cmd_html = '';
-				$br_before = 0;
-				foreach ($this->getCmd(null, null, true) as $cmd) {
-					if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
-						continue;
-					}
-					if ($br_before == 0 && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
-						$cmd_html .= '<br/>';
-					}
-					$cmd_html .= $cmd->toHtml($_version, '', $replace['#cmd-background-color#']);
-					$br_before = 0;
-					if ($cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
-						$cmd_html .= '<br/>';
-						$br_before = 1;
-					}
-				}
-				$replace['#cmd#'] = $cmd_html;
-				break;
-		}
-
 		$content = '';
 		$maxLines = $this->getConfiguration('nbrLinesWidget', 1000);
 		$topToBottom = $this->getConfiguration('topToBottom', 0) == 1 ? true : false;
