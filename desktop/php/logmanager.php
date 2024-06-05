@@ -158,7 +158,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label help" data-help="{{Si le contenu du log est affiché, les commandes ne le seront pas.}}">{{Tuile}}</label>
+								<label class="col-sm-3 control-label">{{Tuile}}</label>
 								<div class="col-sm-6">
 									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="displayContentWidget" />{{Afficher le contenu du log sur la tuile}}</label>
 								</div>
