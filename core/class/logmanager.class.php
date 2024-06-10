@@ -161,50 +161,6 @@ class logmanager extends eqLogic {
 		}
 		$version = jeedom::versionAlias($_version);
 
-		switch ($this->getDisplay('layout::' . $version)) {
-			case 'table':
-				$replace['#eqLogic_class#'] = 'eqLogic_layout_table';
-				$table = self::generateHtmlTable($this->getDisplay('layout::' . $version . '::table::nbLine', 1), $this->getDisplay('layout::' . $version . '::table::nbColumn', 1), $this->getDisplay('layout::' . $version . '::table::parameters'));
-				$br_before = 0;
-				foreach ($this->getCmd(null, null, true) as $cmd) {
-					if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
-						continue;
-					}
-					$tag = '#cmd::' . $this->getDisplay('layout::' . $version . '::table::cmd::' . $cmd->getId() . '::line', 1) . '::' . $this->getDisplay('layout::' . $version . '::table::cmd::' . $cmd->getId() . '::column', 1) . '#';
-					if ($br_before == 0 && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
-						$table['tag'][$tag] .= '<br/>';
-					}
-					$table['tag'][$tag] .= $cmd->toHtml($_version, '', $replace['#cmd-background-color#']);
-					$br_before = 0;
-					if ($cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
-						$table['tag'][$tag] .= '<br/>';
-						$br_before = 1;
-					}
-				}
-				$replace['#cmd#'] = template_replace($table['tag'], $table['html']);
-				break;
-			default:
-				$replace['#eqLogic_class#'] = 'eqLogic_layout_default';
-				$cmd_html = '';
-				$br_before = 0;
-				foreach ($this->getCmd(null, null, true) as $cmd) {
-					if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
-						continue;
-					}
-					if ($br_before == 0 && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
-						$cmd_html .= '<br/>';
-					}
-					$cmd_html .= $cmd->toHtml($_version, '', $replace['#cmd-background-color#']);
-					$br_before = 0;
-					if ($cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
-						$cmd_html .= '<br/>';
-						$br_before = 1;
-					}
-				}
-				$replace['#cmd#'] = $cmd_html;
-				break;
-		}
-
 		$content = '';
 		$maxLines = $this->getConfiguration('nbrLinesWidget', 1000);
 		$topToBottom = $this->getConfiguration('topToBottom', 0) == 1 ? true : false;
@@ -218,7 +174,37 @@ class logmanager extends eqLogic {
 			}
 			if (++$linesDisplayed == $maxLines) break;
 		}
+		$search = array();
+		$replaceLog = array();
+		$search[] = '[DEBUG]';
+		$replaceLog[] = '<span class="label label-xs label-success">&nbsp;DEBUG&nbsp;</span>';
+		$search[] = '[INFO]';
+		$replaceLog[] = '<span class="label label-xs label-info">&nbsp;INFO&nbsp;&nbsp;</span>';
+		$search[] = '[WARNING]';
+		$replaceLog[] = '<span class="label label-xs label-warning">WARNING</span>';
+		$search[] = '[ERROR]';
+		$replaceLog[] = '<span class="label label-xs label-danger">&nbsp;ERROR&nbsp;</span>';
+		$content = str_replace($search, $replaceLog, $content);
 		$replace['#logContent#'] = $content;
+
+		$replace['#eqLogic_class#'] = 'eqLogic_layout_default';
+		$cmd_html = '';
+		foreach ($this->getCmd(null, null, true) as $cmd) {
+			if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
+				continue;
+			}
+			if ($_version == 'dashboard' && $cmd->getDisplay('forceReturnLineBefore', 0) == 1) {
+				$cmd_html .= '<div class="break"></div>';
+			}
+			$cmd_html .= $cmd->toHtml($_version, '');
+			if ($_version == 'dashboard' && $cmd->getDisplay('forceReturnLineAfter', 0) == 1) {
+				$cmd_html .= '<div class="break"></div>';
+			}
+		}
+
+		$replace['#log_style#'] = ($cmd_html == '') ? 'style="height: 100%;"' : '';
+		$replace['#cmd#'] = $cmd_html;
+
 
 		return template_replace($replace, getTemplate('core', $version, 'logmanager', __CLASS__));
 	}
