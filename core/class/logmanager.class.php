@@ -70,11 +70,26 @@ class logmanager extends eqLogic {
 		$this->throwExceptionIfInvalidLogname();
 
 		$replaceChars = array(
-			'á' => 'a', 'à' => 'a', 'â' => 'a', 'ä' => 'a',
-			'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
-			'í' => 'i', 'ì' => 'i', 'î' => 'i', 'ï' => 'i',
-			'ó' => 'o', 'ò' => 'o', 'ô' => 'o', 'ö' => 'o',
-			'ú' => 'u', 'ù' => 'u', 'û' => 'u', 'ü' => 'u'
+			'á' => 'a',
+			'à' => 'a',
+			'â' => 'a',
+			'ä' => 'a',
+			'é' => 'e',
+			'è' => 'e',
+			'ê' => 'e',
+			'ë' => 'e',
+			'í' => 'i',
+			'ì' => 'i',
+			'î' => 'i',
+			'ï' => 'i',
+			'ó' => 'o',
+			'ò' => 'o',
+			'ô' => 'o',
+			'ö' => 'o',
+			'ú' => 'u',
+			'ù' => 'u',
+			'û' => 'u',
+			'ü' => 'u'
 		);
 
 		$name = ltrim($this->getName(), '_');
@@ -179,7 +194,7 @@ class logmanager extends eqLogic {
 		$search[] = '[DEBUG]';
 		$replaceLog[] = '<span class="label label-xs label-success">&nbsp;DEBUG&nbsp;</span>';
 		$search[] = '[INFO]';
-		$replaceLog[] = '<span class="label label-xs label-info">&nbsp;INFO&nbsp;&nbsp;</span>';
+		$replaceLog[] = '<span class="label label-xs label-info">&nbsp;INFO&nbsp;</span>';
 		$search[] = '[WARNING]';
 		$replaceLog[] = '<span class="label label-xs label-warning">WARNING</span>';
 		$search[] = '[ERROR]';
